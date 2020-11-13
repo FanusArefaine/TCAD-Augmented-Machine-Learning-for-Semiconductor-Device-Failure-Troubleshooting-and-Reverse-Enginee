@@ -28,31 +28,13 @@ def base_linear_model(dataframe, device_parameter):
 
     # Fitting the data into linear regression model 
     lin_reg = LinearRegression()
-
     lin_reg.fit(X_train, y_train)
-
-    train_scaler = StandardScaler()
-    train_scaler.fit(X_train)
-
-    X_train = train_scaler.transform(X_train)
-    X_validation = train_scaler.transform(X_validation)
-
-    target_scaler = StandardScaler()
-    target_scaler.fit(pd.DataFrame(y_train))
-
-    y_train = target_scaler.transform(y_train)
-    y_validation = target_scaler.transform((y_validation))
-
 
     # Evaluation of base linear regression model
     t_pred = lin_reg.predict(X_train)
-    t_pred = target_scaler.inverse_transform(t_pred)
-
     y_pred = lin_reg.predict(X_validation)
-    y_pred = target_scaler.inverse_transform(y_pred)
   
-
-
+    # Calculating mean square error on training and testing 
     train_mse = mean_squared_error(y_train, t_pred)
     test_mse = mean_squared_error(y_validation, y_pred)
 
